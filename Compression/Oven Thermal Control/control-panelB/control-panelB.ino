@@ -8,15 +8,17 @@
 
 // Define SPI Arduino pin numbers (Arduino Pro Mini)
 const uint8_t CHIP_SELECT_PIN = 10; // Using standard CS line (SS)
-// SCK & MISO are defined by Arduiino
+// SCK & MISO are defined by Arduino
 const uint8_t VCC = 14; 
 const uint8_t GND = 15;
-int targetValue;
-const int sensorPin = A0; 
-const int relayPin = 4;
+
+//VARIABLES
+int targetValue; // Variable for target value (Controlled by potentiometer)
+const int sensorPin = A0; // Potentiometer input
+const int relayPin = 4; // Relay output pin.
 char currStr[6], targStr[6];
-float temperature;
-int roundCurr;
+float temperature; //variable for current temperature
+int roundCurr; //rounded temperature
 
 // Attach the serial display's RX line to digital pin 2
 SoftwareSerial mySerial(3,2); // pin 2 = TX, pin 3 = RX (unused)
@@ -42,7 +44,7 @@ void loop() {
     mySerial.write(254);
     mySerial.write(128);
     mySerial.write("Curr Temp=");
-	  roundCurr = round(temperature);
+	  roundCurr = round(temperature); //Round the temperature
     sprintf(currStr, "%6d", roundCurr);
     mySerial.write(currStr);
   }
@@ -50,7 +52,7 @@ void loop() {
   mySerial.write(254); 
   mySerial.write(192);
 
-  //Set and display target temperature
+  //Set and display Target temperature
   mySerial.write("Targ Temp=");
   targetValue = map(analogRead(A0), 1023, 0, 100, 400); //Use potentiometer to set this through mapping
   Serial.print("Target before if ");
