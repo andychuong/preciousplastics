@@ -70,9 +70,11 @@ void loop() {
   if(!isnan(temperature)){
     if(roundCurr > targetValue){
       digitalWrite(relayPin, HIGH);
+      delay(1000);
     }
     else{
       digitalWrite(relayPin, LOW);
+      delay(1000);
     }
   }
 
